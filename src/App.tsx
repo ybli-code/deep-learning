@@ -1,5 +1,5 @@
 import React from 'react';
-import { Terminal, Brain, ExternalLink, Sparkles, Code, Cpu } from 'lucide-react';
+import { Terminal, Brain, ExternalLink, Sparkles, Cpu } from 'lucide-react';
 
 interface Resource {
   title: string;
