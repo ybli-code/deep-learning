@@ -1,5 +1,5 @@
 import React from 'react';
-import { Terminal, Brain, ExternalLink, Sparkles, Cpu } from 'lucide-react';
+import { Terminal, Brain, ExternalLink, Sparkles, Cpu, Paintbrush, BookOpen } from 'lucide-react';
 
 interface Resource {
   title: string;
@@ -23,6 +23,20 @@ const resources: Resource[] = [
     description: '通过浏览器交互式探索神经网络，直观理解激活函数、学习率等超参数对模型训练的影响。',
     icon: <Brain className="w-8 h-8 text-purple-400" />,
     tags: ['可视化', '教学', 'TensorFlow']
+  },
+  {
+    title: '图像标注工具',
+    url: 'https://www.makesense.ai/',
+    description: '免费的在线图像标注工具，支持多种标注类型，是计算机视觉项目数据准备的得力助手。',
+    icon: <Paintbrush className="w-8 h-8 text-green-400" />,
+    tags: ['数据', '标注', 'CV']
+  },
+  {
+    title: 'TensorFlow 教程',
+    url: 'https://www.runoob.com/tensorflow/tensorflow-tutorial.html',
+    description: '菜鸟教程提供的 TensorFlow 入门指南，内容清晰，适合初学者快速上手深度学习框架。',
+    icon: <BookOpen className="w-8 h-8 text-orange-400" />,
+    tags: ['教程', '入门', 'TensorFlow']
   }
 ];
 

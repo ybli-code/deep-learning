@@ -1,3 +1,5 @@
 1. jupyter在线运行：https://jupyter.estart.top
 2. 深度神经网络可视化：https://playground.tensorflow.org/#activation=tanh&batchSize=10&dataset=xor&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=4,4,3&seed=0.70531&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=true&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false
 3. 图像标注工具：https://www.makesense.ai/
+4. tensorflow教程：https://www.runoob.com/tensorflow/tensorflow-tutorial.html
+5. 学生项目：将 docs中的文档做成一个网站，方便学生查看
