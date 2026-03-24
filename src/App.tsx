@@ -1,5 +1,5 @@
 import React from 'react';
-import { Terminal, Brain, ExternalLink, Sparkles, Cpu, Paintbrush, BookOpen } from 'lucide-react';
+import { Terminal, Brain, ExternalLink, Sparkles, Cpu, Paintbrush, BookOpen, Github } from 'lucide-react';
 
 interface Resource {
   title: string;
@@ -112,6 +112,15 @@ function App() {
             <Cpu className="w-4 h-4" />
             <span>李宜兵</span>
           </div>
+          <a 
+            href="https://github.com/ybli-code/deep-learning" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 hover:text-white transition-colors"
+          >
+            <Github className="w-4 h-4" />
+            <span>GitHub 开源地址</span>
+          </a>
         </footer>
       </main>
     </div>
