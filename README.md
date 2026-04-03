@@ -16,3 +16,12 @@
 3. 使用TRAE打开
 4. 修改代码并提交
 5. 申请PR
+
+## 常见错误
+- npm:无法加载***.ps1，因为系统禁止...
+    - 在Power Shell（管理员）中运行：Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+- 无法将‘npm’识别为...
+    - 原因1：没有安装nodejs，或者没有加入环境变量
+        - 重新安装nodejs
+    - 原因2：先打开了TRAE，后安装的nodejs
+        - 重启TRAE

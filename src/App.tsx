@@ -1,5 +1,7 @@
-import React from 'react';
-import { Terminal, Brain, ExternalLink, Sparkles, Cpu, Paintbrush, BookOpen, Github } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { Terminal, Brain, ExternalLink, Sparkles, Cpu, Paintbrush, BookOpen, Github, FileText, Loader2 } from 'lucide-react';
+import Docs from './Docs';
 
 interface Resource {
   title: string;
@@ -7,6 +9,12 @@ interface Resource {
   description: string;
   icon: React.ReactNode;
   tags: string[];
+}
+
+interface DocItem {
+  id: string;
+  title: string;
+  description: string;
 }
 
 const resources: Resource[] = [
@@ -40,10 +48,24 @@ const resources: Resource[] = [
   }
 ];
 
-function App() {
+function HomePage() {
+  const [docs, setDocs] = useState<DocItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/docs/docs.json')
+      .then((res) => res.json())
+      .then((data) => {
+        setDocs(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-200 font-sans selection:bg-cyan-500/30">
-      {/* Background Effects */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-600/20 blur-[120px] rounded-full mix-blend-screen" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-cyan-600/20 blur-[120px] rounded-full mix-blend-screen" />
@@ -67,50 +89,92 @@ function App() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {resources.map((resource, index) => (
-            <a
-              key={index}
-              href={resource.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative p-8 rounded-2xl bg-neutral-900/50 border border-neutral-800 hover:border-neutral-700 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              
-              <div className="flex justify-between items-start mb-6">
-                <div className="p-3 bg-neutral-950 rounded-xl border border-neutral-800 shadow-inner">
-                  {resource.icon}
+        <section className="mb-16">
+          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+            <FileText className="w-6 h-6 text-cyan-400" />
+            文档教程
+          </h2>
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-cyan-400" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {docs.map((doc) => (
+                <Link
+                  key={doc.id}
+                  to={`/docs/${encodeURIComponent(doc.id)}`}
+                  className="group relative p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="p-2.5 bg-neutral-950 rounded-xl border border-neutral-800">
+                      <FileText className="w-6 h-6 text-cyan-400" />
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-neutral-600 group-hover:text-cyan-400 transition-colors" />
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                    {doc.title}
+                  </h3>
+                  
+                  <p className="text-neutral-400 text-sm leading-relaxed">
+                    {doc.description}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold text-white mb-6">在线资源</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {resources.map((resource, index) => (
+              <a
+                key={index}
+                href={resource.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative p-8 rounded-2xl bg-neutral-900/50 border border-neutral-800 hover:border-neutral-700 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                
+                <div className="flex justify-between items-start mb-6">
+                  <div className="p-3 bg-neutral-950 rounded-xl border border-neutral-800 shadow-inner">
+                    {resource.icon}
+                  </div>
+                  <ExternalLink className="w-5 h-5 text-neutral-600 group-hover:text-white transition-colors" />
                 </div>
-                <ExternalLink className="w-5 h-5 text-neutral-600 group-hover:text-white transition-colors" />
-              </div>
-              
-              <h2 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">
-                {resource.title}
-              </h2>
-              
-              <p className="text-neutral-400 leading-relaxed mb-8 min-h-[4rem]">
-                {resource.description}
-              </p>
-              
-              <div className="flex flex-wrap gap-2">
-                {resource.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 text-xs font-medium bg-neutral-950 text-neutral-300 border border-neutral-800 rounded-lg"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </a>
-          ))}
-        </div>
+                
+                <h2 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">
+                  {resource.title}
+                </h2>
+                
+                <p className="text-neutral-400 leading-relaxed mb-8 min-h-[4rem]">
+                  {resource.description}
+                </p>
+                
+                <div className="flex flex-wrap gap-2">
+                  {resource.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 text-xs font-medium bg-neutral-950 text-neutral-300 border border-neutral-800 rounded-lg"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
 
         <footer className="mt-32 pt-8 border-t border-neutral-800/50 flex flex-col md:flex-row justify-between items-center gap-4 text-neutral-500 text-sm">
           <div className="flex items-center gap-2">
             <Cpu className="w-4 h-4" />
-            <span>李宜兵</span>
+            <span>李宜兵1111</span>
           </div>
           <a 
             href="https://github.com/ybli-code/deep-learning" 
@@ -124,6 +188,17 @@ function App() {
         </footer>
       </main>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/docs/:id" element={<Docs />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
