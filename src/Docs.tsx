@@ -1,14 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, BookOpen, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-
-interface DocInfo {
-  id: string;
-  title: string;
-  description: string;
-}
 
 function Docs() {
   const { id } = useParams<{ id: string }>();
