@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { Terminal, Brain, ExternalLink, Sparkles, Cpu, Paintbrush, BookOpen, Github, FileText, Loader2 } from 'lucide-react';
+import { Terminal, Brain, ExternalLink, Sparkles, Cpu, Paintbrush, BookOpen, Github, FileText, Loader2, GitBranch } from 'lucide-react';
 import Docs from './Docs';
 
 interface Resource {
@@ -174,17 +174,28 @@ function HomePage() {
         <footer className="mt-32 pt-8 border-t border-neutral-800/50 flex flex-col md:flex-row justify-between items-center gap-4 text-neutral-500 text-sm">
           <div className="flex items-center gap-2">
             <Cpu className="w-4 h-4" />
-            <span>李宜兵1111</span>
+            <span>李宜兵</span>
           </div>
-          <a 
-            href="https://github.com/ybli-code/deep-learning" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 hover:text-white transition-colors"
-          >
-            <Github className="w-4 h-4" />
-            <span>GitHub 开源地址</span>
-          </a>
+          <div className="flex items-center gap-6">
+            <a 
+              href="https://github.com/ybli-code/deep-learning" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-white transition-colors"
+            >
+              <Github className="w-4 h-4" />
+              <span>GitHub</span>
+            </a>
+            <a 
+              href="https://gitee.com/ybli_code/deep-learning" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-white transition-colors"
+            >
+              <GitBranch className="w-4 h-4" />
+              <span>Gitee</span>
+            </a>
+          </div>
         </footer>
       </main>
     </div>
