@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { Terminal, Brain, ExternalLink, Sparkles, Cpu, Paintbrush, BookOpen, Github, FileText, Loader2, GitBranch } from 'lucide-react';
+import { Terminal, Brain, ExternalLink, Sparkles, Cpu, Paintbrush, BookOpen, Github, FileText, Loader2, GitBranch, Code2, Play } from 'lucide-react';
 import Docs from './Docs';
 
 interface Resource {
@@ -16,6 +16,22 @@ interface DocItem {
   title: string;
   description: string;
 }
+
+interface NotebookItem {
+  id: string;
+  title: string;
+  description: string;
+  filename: string;
+}
+
+const notebooks: NotebookItem[] = [
+  {
+    id: '1',
+    title: 'TensorFlow 张量操作',
+    description: '学习 TensorFlow 中张量的基本操作，包括创建、索引、切片和运算。',
+    filename: '1-TensorFlow张量操作.ipynb'
+  }
+];
 
 const resources: Resource[] = [
   {
@@ -126,6 +142,58 @@ function HomePage() {
               ))}
             </div>
           )}
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+            <Code2 className="w-6 h-6 text-purple-400" />
+            Jupyter Notebook 实验
+          </h2>
+          <p className="text-neutral-400 mb-6">下载 Notebook 文件后，上传到 Jupyter 在线环境即可运行。</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {notebooks.map((notebook) => (
+              <div
+                key={notebook.id}
+                className="group relative p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                
+                <div className="flex justify-between items-start mb-4">
+                  <div className="p-2.5 bg-neutral-950 rounded-xl border border-neutral-800">
+                    <Code2 className="w-6 h-6 text-purple-400" />
+                  </div>
+                </div>
+                
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">
+                  {notebook.title}
+                </h3>
+                
+                <p className="text-neutral-400 text-sm leading-relaxed mb-4">
+                  {notebook.description}
+                </p>
+                
+                <div className="flex gap-3">
+                  <a
+                    href={`/notebooks/${notebook.filename}`}
+                    download
+                    className="flex items-center gap-2 px-4 py-2 bg-neutral-800 hover:bg-neutral-700 rounded-lg text-sm text-white transition-colors"
+                  >
+                    <FileText className="w-4 h-4" />
+                    下载
+                  </a>
+                  <a
+                    href="https://jupyter.estart.top"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-500 rounded-lg text-sm text-white transition-colors"
+                  >
+                    <Play className="w-4 h-4" />
+                    在线运行
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section>
